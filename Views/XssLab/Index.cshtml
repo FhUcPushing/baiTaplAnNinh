@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "XSS Security Lab";
+}
+
+<div class="container" style="max-width: 1000px; margin: 40px auto; padding: 20px;">
+
+    <h1>SweetCake - XSS Security Lab</h1>
+
+    <p>
+        Khu vực thực hành minh họa ba loại XSS và cách phòng chống.
+        Chỉ sử dụng trên môi trường localhost.
+    </p>
+
+    <hr />
+
+    <section style="margin: 28px 0;">
+        <h2>1. Stored XSS</h2>
+        <p>
+            Minh họa dữ liệu bình luận được lưu trong SQL Server
+            và được hiển thị lại không an toàn.
+        </p>
+
+        <a asp-controller="XssLab"
+           asp-action="Stored"
+           class="btn btn-primary">
+            Mở Stored XSS
+        </a>
+    </section>
+
+    <hr />
+
+    <section style="margin: 28px 0;">
+        <h2>2. Reflected XSS</h2>
+        <p>
+            Minh họa từ khóa trên URL được phản hồi vào trang
+            mà không mã hóa HTML phù hợp.
+        </p>
+
+        <a asp-controller="XssLab"
+           asp-action="Reflected"
+           class="btn btn-primary">
+            Mở Reflected XSS
+        </a>
+    </section>
+
+    <hr />
+
+    <section style="margin: 28px 0;">
+        <h2>3. DOM-based XSS</h2>
+        <p>
+            Minh họa JavaScript phía trình duyệt xử lý dữ liệu
+            không đáng tin cậy thông qua innerHTML.
+        </p>
+
+        <a asp-controller="XssLab"
+           asp-action="Dom"
+           class="btn btn-primary">
+            Mở DOM-based XSS
+        </a>
+    </section>
+
+    <hr />
+
+    <p>
+        <strong>Lưu ý:</strong>
+        Các trang này chỉ dành cho thực hành bảo mật trên máy cá nhân.
+        Không triển khai phiên bản cố ý có lỗ hổng lên Internet.
+    </p>
+
+</div>

@@ -1,0 +1,205 @@
+﻿/* =========================
+   TRANG HƯỚNG DẪN MUA BÁNH
+   ========================= */
+
+.huong-dan {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 20px 80px;
+}
+
+
+/* =========================
+   TIÊU ĐỀ
+   ========================= */
+
+.huong-dan-tieu-de {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+    .huong-dan-tieu-de h1 {
+        margin: 0 0 15px 0;
+        font-size: 32px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .huong-dan-tieu-de p {
+        margin: 0;
+        font-size: 17px;
+        color: #777;
+    }
+
+
+/* =========================
+   TỪNG BƯỚC
+   ========================= */
+
+.buoc {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 35px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+.so-buoc {
+    width: 65px;
+    height: 65px;
+    min-width: 65px;
+    border-radius: 50%;
+    background-color: #d65f83;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+
+.noi-dung-buoc {
+    flex: 1;
+}
+
+    .noi-dung-buoc h2 {
+        margin: 0 0 15px 0;
+        font-size: 24px;
+        color: #333;
+    }
+
+    .noi-dung-buoc p {
+        margin: 0 0 10px 0;
+        font-size: 16px;
+        line-height: 1.8;
+        color: #666;
+    }
+
+    .noi-dung-buoc strong {
+        color: #d65f83;
+    }
+
+
+/* =========================
+   LƯU Ý
+   ========================= */
+
+.luu-y {
+    margin-top: 60px;
+    padding: 30px;
+    background-color: #fff7f9;
+    border-left: 4px solid #d65f83;
+}
+
+    .luu-y h2 {
+        margin: 0 0 20px 0;
+        font-size: 24px;
+        color: #333;
+    }
+
+    .luu-y p {
+        margin: 8px 0;
+        font-size: 16px;
+        line-height: 1.7;
+        color: #555;
+    }
+
+
+/* =========================
+   TABLET
+   ========================= */
+
+@media (max-width: 768px) {
+
+    .huong-dan {
+        padding: 40px 20px 60px;
+    }
+
+    .huong-dan-tieu-de h1 {
+        font-size: 27px;
+    }
+
+    .huong-dan-tieu-de p {
+        font-size: 16px;
+    }
+
+    .buoc {
+        gap: 20px;
+        padding: 30px 0;
+    }
+
+    .so-buoc {
+        width: 55px;
+        height: 55px;
+        min-width: 55px;
+        font-size: 16px;
+    }
+
+    .noi-dung-buoc h2 {
+        font-size: 21px;
+    }
+}
+
+
+/* =========================
+   ĐIỆN THOẠI
+   ========================= */
+
+@media (max-width: 480px) {
+
+    .huong-dan {
+        padding: 30px 15px 50px;
+    }
+
+    .huong-dan-tieu-de {
+        margin-bottom: 35px;
+    }
+
+        .huong-dan-tieu-de h1 {
+            font-size: 22px;
+            line-height: 1.4;
+        }
+
+        .huong-dan-tieu-de p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+    .buoc {
+        gap: 15px;
+        padding: 25px 0;
+    }
+
+    .so-buoc {
+        width: 45px;
+        height: 45px;
+        min-width: 45px;
+        font-size: 14px;
+    }
+
+    .noi-dung-buoc h2 {
+        font-size: 18px;
+        line-height: 1.4;
+    }
+
+    .noi-dung-buoc p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .luu-y {
+        margin-top: 40px;
+        padding: 20px;
+    }
+
+        .luu-y h2 {
+            font-size: 19px;
+        }
+
+        .luu-y p {
+            font-size: 14px;
+        }
+}

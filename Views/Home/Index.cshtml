@@ -1,0 +1,566 @@
+﻿@model baiTaplAnNinh.Models.HomeViewModel
+
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/TrangChu.css"
+          asp-append-version="true" />
+}
+
+<!-- THÔNG BÁO -->
+<div id="thongBaoGioHang"
+     class="thong-bao-gio-hang an-thong-bao"
+     role="status"
+     aria-live="polite">
+</div>
+
+<!-- BANNER CHÍNH -->
+<section class="cake-hero">
+
+    <img class="hero-bg"
+         src="~/images/TrangChu/banhvanganh_TC.jpg"
+         alt="Bộ sưu tập bánh ngọt SweetCake" />
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-inner">
+        <div class="hero-copy">
+
+            <div class="hero-actions">
+                <a asp-controller="Products"
+                   asp-action="Index"
+                   class="btn-primary">
+
+                    <i class="fa-solid fa-cake-candles"></i>
+                    Khám phá ngay
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="hero-points">
+                <div>
+                    <i class="fa-solid fa-leaf"></i>
+                    <span>Nguyên liệu chọn lọc</span>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-heart"></i>
+                    <span>Làm bánh bằng yêu thương</span>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-gift"></i>
+                    <span>Quà tặng ngọt ngào</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- SẢN PHẨM NỔI BẬT -->
+<section class="products section-wrap" id="san-pham">
+
+    <div class="section-title">
+        <div>
+            <h2>
+                Sản phẩm nổi bật
+                <i class="fa-solid fa-heart"></i>
+            </h2>
+
+            <p>
+                Những chiếc bánh ngọt ngào được yêu thích tại SweetCake.
+            </p>
+        </div>
+
+        <a asp-controller="Products"
+           asp-action="Index"
+           class="view-all">
+            Xem tất cả
+            <i class="fa-solid fa-arrow-right"></i>
+        </a>
+    </div>
+
+    <div class="product-list">
+
+        @foreach (var product in Model.FeaturedProducts)
+        {
+            <article class="product">
+
+                <div class="product-image">
+
+                    <a asp-controller="Products"
+                       asp-action="Details"
+                       asp-route-id="@product.Id">
+
+                        <img src="@Url.Content("~/" + product.ImageUrl)"
+                             alt="@product.Name"
+                             loading="lazy" />
+                    </a>
+
+                    <span class="product-heart">
+                        <i class="fa-solid fa-heart"></i>
+                    </span>
+
+                </div>
+
+                <div class="product-info">
+
+                    <h3>
+                        <a class="ten-banh-link"
+                           asp-controller="Products"
+                           asp-action="Details"
+                           asp-route-id="@product.Id">
+                            @product.Name
+                        </a>
+                    </h3>
+
+                    <div class="product-bottom">
+
+                        <span class="price">
+                            @product.Price.ToString("N0")đ
+                        </span>
+
+                        <div class="product-actions">
+
+                            <a asp-controller="Products"
+                               asp-action="Details"
+                               asp-route-id="@product.Id"
+                               class="buy-now">
+                                Xem bánh
+                            </a>
+
+                            <a asp-controller="Products"
+                               asp-action="Details"
+                               asp-route-id="@product.Id"
+                               class="add-cart"
+                               title="Xem chi tiết bánh"
+                               aria-label="Xem chi tiết bánh">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+        }
+
+    </div>
+</section>
+
+<!-- THANH LỢI ÍCH -->
+<section class="benefits">
+
+    <div class="benefits-intro">
+        <span class="section-kicker">
+            DỊCH VỤ CỦA CHÚNG TÔI
+        </span>
+
+        <h2>Ngọt ngào trọn vẹn hơn</h2>
+
+        <p>
+            Chăm chút từng chiếc bánh để niềm vui của bạn thêm trọn vẹn.
+        </p>
+    </div>
+
+    <div class="benefit-item">
+        <i class="fa-solid fa-leaf"></i>
+        <h3>Nguyên liệu chọn lọc</h3>
+        <p>Chú trọng chất lượng trong từng chiếc bánh.</p>
+    </div>
+
+    <div class="benefit-item">
+        <i class="fa-solid fa-cake-candles"></i>
+        <h3>Bánh tươi mỗi ngày</h3>
+        <p>Đa dạng hương vị cho mọi dịp đặc biệt.</p>
+    </div>
+
+    <div class="benefit-item">
+        <i class="fa-solid fa-truck-fast"></i>
+        <h3>Giao hàng tiện lợi</h3>
+        <p>Giúp món quà ngọt ngào đến gần bạn hơn.</p>
+    </div>
+
+    <div class="benefit-item">
+        <i class="fa-solid fa-headset"></i>
+        <h3>Tư vấn tận tâm</h3>
+        <p>Cùng bạn chọn chiếc bánh phù hợp.</p>
+    </div>
+
+</section>
+
+<!-- BÁNH TƯƠI -->
+<section class="products fresh-section section-wrap"
+         id="banh-tuoi">
+
+    <div class="section-title">
+
+        <div>
+            <span class="section-kicker">
+                TƯƠI NGON MỖI NGÀY
+            </span>
+
+            <h2>
+                Bánh tươi
+                <i class="fa-solid fa-bread-slice"></i>
+            </h2>
+
+            <p>
+                Món ngon nhỏ xinh cho bữa sáng và giờ nghỉ ngọt ngào.
+            </p>
+        </div>
+
+        <a asp-controller="Products"
+           asp-action="Index"
+           asp-route-loai="banh_tuoi"
+           class="view-all">
+            Xem tất cả
+            <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+    </div>
+
+    <div class="product-list">
+
+        @foreach (var product in Model.FreshCakes)
+        {
+            <article class="product">
+
+                <div class="product-image">
+
+                    <a asp-controller="Products"
+                       asp-action="Details"
+                       asp-route-id="@product.Id">
+
+                        <img src="@Url.Content("~/" + product.ImageUrl)"
+                             alt="@product.Name"
+                             loading="lazy" />
+                    </a>
+
+                    <span class="product-heart">
+                        <i class="fa-solid fa-heart"></i>
+                    </span>
+
+                </div>
+
+                <div class="product-info">
+
+                    <h3>
+                        <a class="ten-banh-link"
+                           asp-controller="Products"
+                           asp-action="Details"
+                           asp-route-id="@product.Id">
+                            @product.Name
+                        </a>
+                    </h3>
+
+                    <div class="product-bottom">
+
+                        <span class="price">
+                            @product.Price.ToString("N0")đ
+                        </span>
+
+                        <div class="product-actions">
+
+                            <a asp-controller="Products"
+                               asp-action="Details"
+                               asp-route-id="@product.Id"
+                               class="buy-now">
+                                Xem bánh
+                            </a>
+
+                            <a asp-controller="Products"
+                               asp-action="Details"
+                               asp-route-id="@product.Id"
+                               class="add-cart"
+                               title="Xem chi tiết bánh"
+                               aria-label="Xem chi tiết bánh">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+        }
+
+    </div>
+</section>
+
+<!-- GIỚI THIỆU VÀ CẢM NHẬN -->
+<section class="story-section">
+
+    <div class="story-card">
+
+        <div class="story-photo">
+            <img src="~/images/TrangChu/cacloai_TC.jpg"
+                 alt="Những chiếc bánh ngọt SweetCake"
+                 loading="lazy" />
+        </div>
+
+        <div class="story-copy">
+
+            <span class="section-kicker">
+                VÌ SAO CHỌN SWEETCAKE?
+            </span>
+
+            <h2>Hơn cả một chiếc bánh</h2>
+
+            <p>
+                Chúng tôi tin rằng những điều nhỏ bé có thể tạo nên
+                niềm vui lớn. Mỗi chiếc bánh là một lời chúc ngọt ngào
+                dành cho những người bạn yêu quý.
+            </p>
+
+            <a asp-controller="Products"
+               asp-action="Index"
+               class="text-link">
+                Khám phá các loại bánh
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+            <div class="story-icons">
+                <span>
+                    <i class="fa-solid fa-leaf"></i>
+                    Chọn lọc
+                </span>
+
+                <span>
+                    <i class="fa-solid fa-heart"></i>
+                    Tận tâm
+                </span>
+
+                <span>
+                    <i class="fa-solid fa-gift"></i>
+                    Ý nghĩa
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="testimonial-card">
+
+        <span class="section-kicker">
+            LỜI YÊU THƯƠNG
+        </span>
+
+        <h2>Khách hàng nói gì?</h2>
+
+        <div class="quote-icon">
+            <i class="fa-solid fa-quote-left"></i>
+        </div>
+
+        <p class="quote-text">
+            Bánh đẹp, vị ngọt vừa phải và được chuẩn bị chỉn chu.
+            Mình rất thích phong cách nhẹ nhàng của SweetCake!
+        </p>
+
+        <div class="customer">
+
+            <span class="customer-avatar">
+                <i class="fa-solid fa-user"></i>
+            </span>
+
+            <div>
+                <strong>Khách hàng SweetCake</strong>
+
+                <div class="stars">
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        <i class="fa-solid fa-star"></i>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<!-- BÀI VIẾT -->
+<section class="news" id="bai-viet">
+
+    <div class="section-title">
+        <div>
+            <span class="section-kicker">
+                CHUYỆN NHÀ SWEETCAKE
+            </span>
+
+            <h2>
+                Bài viết mới nhất
+                <i class="fa-regular fa-newspaper"></i>
+            </h2>
+
+            <p>
+                Tin tức, bộ sưu tập bánh và những ưu đãi dành cho bạn.
+            </p>
+        </div>
+    </div>
+
+    <div class="news-list">
+
+        <article class="news-item">
+            <div class="news-image">
+                <img src="~/images/TrangChu/baiviet4_TC.jpg"
+                     alt="Ngọt ngào gửi trao"
+                     loading="lazy" />
+            </div>
+
+            <div class="news-content">
+                <span class="news-category">
+                    <i class="fa-solid fa-heart"></i>
+                    Câu chuyện ngọt ngào
+                </span>
+
+                <h3>
+                    NGỌT NGÀO GỬI TRAO BÁNH KEM CHO NGÀY ĐẶC BIỆT
+                </h3>
+
+                <p>
+                    Một chiếc bánh kem có thể trở thành món quà yêu thương
+                    dành cho những người thân yêu.
+                </p>
+            </div>
+        </article>
+
+        <article class="news-item">
+            <div class="news-image">
+                <img src="~/images/TrangChu/banhtrungthu_TC.jpg"
+                     alt="Bộ sưu tập bánh Trung Thu"
+                     loading="lazy" />
+            </div>
+
+            <div class="news-content">
+                <span class="news-category">
+                    <i class="fa-solid fa-gift"></i>
+                    Ưu đãi
+                </span>
+
+                <h3>
+                    BỘ SƯU TẬP BÁNH TRUNG THU SWEETCAKE
+                </h3>
+
+                <p>
+                    Khám phá những hương vị bánh đặc biệt dành cho mùa trăng.
+                </p>
+            </div>
+        </article>
+
+        <article class="news-item">
+            <div class="news-image">
+                <img src="~/images/TrangChu/banhtrungthu2_TC.jpg"
+                     alt="Bộ sưu tập bánh Trung Thu"
+                     loading="lazy" />
+            </div>
+
+            <div class="news-content">
+                <span class="news-category">
+                    <i class="fa-solid fa-tag"></i>
+                    Khuyến mãi
+                </span>
+
+                <h3>BỘ SƯU TẬP BÁNH TRUNG THU</h3>
+
+                <p>
+                    Những món quà tinh tế để trao gửi tình cảm.
+                </p>
+            </div>
+        </article>
+
+        <article class="news-item">
+            <div class="news-image">
+                <img src="~/images/TrangChu/hop_TC.jpg"
+                     alt="Hộp quà bánh SweetCake"
+                     loading="lazy" />
+            </div>
+
+            <div class="news-content">
+                <span class="news-category">
+                    <i class="fa-solid fa-gift"></i>
+                    Quà tặng
+                </span>
+
+                <h3>HỘP QUÀ NGỌT NGÀO</h3>
+
+                <p>
+                    Hộp quà đẹp mắt dành tặng gia đình và bạn bè.
+                </p>
+            </div>
+        </article>
+
+        <article class="news-item">
+            <div class="news-image">
+                <img src="~/images/TrangChu/baiviet5_TC.jpg"
+                     alt="Ưu đãi SweetCake"
+                     loading="lazy" />
+            </div>
+
+            <div class="news-content">
+                <span class="news-category">
+                    <i class="fa-solid fa-percent"></i>
+                    Ưu đãi
+                </span>
+
+                <h3>ƯU ĐÃI ĐẶC BIỆT TỪ SWEETCAKE</h3>
+
+                <p>
+                    Thêm niềm vui với những chương trình dành cho khách hàng.
+                </p>
+            </div>
+        </article>
+
+        <article class="news-item">
+            <div class="news-image">
+                <img src="~/images/TrangChu/banhtrungthu3_TC.jpg"
+                     alt="Bánh Trung Thu SweetCake"
+                     loading="lazy" />
+            </div>
+
+            <div class="news-content">
+                <span class="news-category">
+                    <i class="fa-solid fa-moon"></i>
+                    Bộ sưu tập
+                </span>
+
+                <h3>NHỮNG HƯƠNG VỊ ĐẶC BIỆT</h3>
+
+                <p>
+                    Khám phá các hương vị bánh được tuyển chọn.
+                </p>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+<!-- ƯU ĐÃI THÀNH VIÊN -->
+<section class="member-banner">
+
+    <div class="member-icon">
+        <i class="fa-solid fa-gift"></i>
+    </div>
+
+    <div class="member-copy">
+        <span>ĐẶC QUYỀN DÀNH RIÊNG CHO BẠN</span>
+
+        <h2>Tham gia gia đình SweetCake</h2>
+
+        <p>
+            Cùng khám phá những chiếc bánh yêu thích và ưu đãi mới.
+        </p>
+    </div>
+
+    <a asp-controller="Products"
+       asp-action="Index"
+       class="member-button">
+        Khám phá ngay
+        <i class="fa-solid fa-arrow-right"></i>
+    </a>
+
+</section>

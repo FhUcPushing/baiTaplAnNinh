@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - SweetCake</title>
+
+    <link rel="stylesheet"
+          href="~/css/Site.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="nav-container">
+
+            <div class="mobile-left-controls">
+                <button type="button"
+                        class="menu-toggle"
+                        aria-label="Mở menu"
+                        aria-expanded="false"
+                        onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Logo -->
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="brand"
+               aria-label="SweetCake - Trang chủ">
+
+                <span class="brand-icon">
+                    <i class="fa-solid fa-cake-candles"></i>
+                </span>
+
+                <span class="brand-name">SweetCake</span>
+            </a>
+
+            <!-- MENU -->
+            <nav class="main-nav" id="mainNav">
+
+                <div class="nav-account">
+                    <a href="#">
+                        <i class="fa-solid fa-user"></i>
+                        Đăng nhập
+                    </a>
+
+                    <span>/</span>
+
+                    <a href="#">
+                        <i class="fa-solid fa-user-plus"></i>
+                        Đăng ký
+                    </a>
+                </div>
+
+                <a asp-controller="Home"
+                   asp-action="Index">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Trang chủ</span>
+                </a>
+
+                <a asp-controller="Products"
+                   asp-action="Index">
+                    <i class="fa-solid fa-cake-candles"></i>
+                    <span>Sản phẩm</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-store"></i>
+                    <span>Giới thiệu</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-regular fa-newspaper"></i>
+                    <span>Tin tức</span>
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-headset"></i>
+                    <span>Tư vấn</span>
+                </a>
+            </nav>
+
+            <!-- TÌM KIẾM VÀ GIỎ HÀNG -->
+            <div class="header-right">
+
+                <div class="header-search"
+                     id="headerSearch"
+                     data-url="@Url.Action("Index", "Products")">
+
+                    <input type="search"
+                           id="txtTimKiem"
+                           placeholder="Tìm bánh..."
+                           autocomplete="off"
+                           aria-label="Tìm kiếm bánh" />
+
+                    <button type="button"
+                            onclick="xuLyTimKiem()"
+                            aria-label="Tìm kiếm">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+
+                <div class="header-account">
+                    <a href="#"
+                       class="cart-link"
+                       aria-label="Giỏ hàng"
+                       title="Giỏ hàng">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </a>
+
+                    <a href="#" class="login-link">
+                        <i class="fa-solid fa-user"></i>
+                        Đăng nhập
+                    </a>
+
+                    <span class="account-separator">/</span>
+
+                    <a href="#" class="register-link">
+                        <i class="fa-solid fa-user-plus"></i>
+                        Đăng ký
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- NỘI DUNG TỪNG TRANG -->
+    <main>
+        @RenderBody()
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+
+            <p class="footer-brand">
+                <i class="fa-solid fa-cake-candles"></i>
+                SweetCake
+            </p>
+
+            <p>© 2026 SweetCake</p>
+
+            <p>Ngọt ngào trong từng chiếc bánh.</p>
+        </div>
+    </footer>
+
+    <script src="~/js/sweetcake-site.js"
+            asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

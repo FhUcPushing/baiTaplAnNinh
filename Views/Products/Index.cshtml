@@ -1,0 +1,156 @@
+﻿@model List<baiTaplAnNinh.Models.CakeProduct>
+
+@{
+    ViewData["Title"] = "Sản phẩm";
+
+    string query = ViewData["Query"] as string ?? "";
+    string category = ViewData["Category"] as string ?? "";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/SanPham.css"
+          asp-append-version="true" />
+}
+
+<div class="container product-page">
+
+    @if (string.IsNullOrEmpty(query))
+    {
+        <section class="product-hero">
+            <img src="~/image/product-banner.png"
+                 alt="Bộ sưu tập bánh SweetCake" />
+
+            <span class="product-kicker">
+                BỘ SƯU TẬP SWEETCAKE
+            </span>
+
+            <h1>Sản phẩm</h1>
+
+            <p>Khám phá các loại bánh của SweetCake</p>
+        </section>
+    }
+
+    <section class="product-category-section"
+             id="khuLoaiBanh">
+
+        <ul class="category-list">
+
+            <li class="@(category == "" ? "active" : "")">
+                <a href="@Url.Action("Index", "Products",
+                                       new { q = query })#khuLoaiBanh">
+                    <span class="category-icon">
+                        <i class="fa-solid fa-table-cells-large"></i>
+                    </span>
+                    <span class="category-name">Tất cả</span>
+                </a>
+            </li>
+
+            <li class="@(category == "banh_kem" ? "active" : "")">
+                <a href="@Url.Action("Index", "Products",
+                                       new { loai = "banh_kem", q = query })#khuLoaiBanh">
+                    <span class="category-icon">
+                        <i class="fa-solid fa-cake-candles"></i>
+                    </span>
+                    <span class="category-name">Bánh kem</span>
+                </a>
+            </li>
+
+            <li class="@(category == "banh_tuoi" ? "active" : "")">
+                <a href="@Url.Action("Index", "Products",
+                                       new { loai = "banh_tuoi", q = query })#khuLoaiBanh">
+                    <span class="category-icon">
+                        <i class="fa-solid fa-cookie-bite"></i>
+                    </span>
+                    <span class="category-name">Bánh tươi</span>
+                </a>
+            </li>
+
+            <li class="@(category == "banh_mi" ? "active" : "")">
+                <a href="@Url.Action("Index", "Products",
+                                       new { loai = "banh_mi", q = query })#khuLoaiBanh">
+                    <span class="category-icon">
+                        <i class="fa-solid fa-bread-slice"></i>
+                    </span>
+                    <span class="category-name">Bánh mì</span>
+                </a>
+            </li>
+
+        </ul>
+    </section>
+
+    <section class="product-list-section" id="khuDanhSach">
+
+        <div class="list-head">
+            <div class="list-head-title">
+                <h2>Danh sách bánh</h2>
+                <span class="count-badge">
+                    @Model.Count sản phẩm
+                </span>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(query))
+        {
+            <div class="loc-dang-chon">
+                <span class="chip">
+                    Từ khóa:
+                    <strong>@query</strong>
+
+                    <a href="@Url.Action("Index", "Products",
+                                               new { loai = category })#khuDanhSach"
+                   aria-label="Xóa tìm kiếm"
+                   title="Xóa tìm kiếm">✕</a>
+            </span>
+        </div>
+                }
+
+        @if (Model.Count == 0)
+        {
+            <p class="khong-co-banh">
+                Không tìm thấy bánh phù hợp.
+            </p>
+        }
+
+        <div id="danhSachBanh" class="danh-sach-banh">
+
+            @foreach (var product in Model)
+            {
+                <article class="the_san_pham">
+
+                    <a asp-controller="Products"
+   asp-action="Details"
+   asp-route-id="@product.Id"
+   class="lien-ket-anh">
+   </a>
+                    <a asp-controller="Products"
+   asp-action="Details"
+   asp-route-id="@product.Id"
+   class="lien-ket-ten">
+   </a>
+                    <p class="gia_banh">
+                        @product.Price.ToString("N0")đ
+                    </p>
+
+                    <div class="nhom-nut-mua">
+
+                                <a asp-controller="Products"
+                                   asp-action="Details"
+                                   asp-route-id="@product.Id"
+                                   class="nut-mua-ngay">
+                                    Xem chi tiết
+                                </a>
+
+                        <button type="button"
+                                class="nut-them-gio"
+                                title="Chức năng giỏ hàng sẽ được chuyển sau"
+                                aria-label="Thêm vào giỏ hàng">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </button>
+
+                    </div>
+                </article>
+            }
+        </div>
+    </section>
+</div>

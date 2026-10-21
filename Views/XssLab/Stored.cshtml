@@ -1,0 +1,133 @@
+﻿@model baiTaplAnNinh.Models.ProductDetailsViewModel
+
+@{
+    ViewData["Title"] = "Stored XSS Lab";
+}
+
+<div class="container" style="max-width: 1000px; margin: 35px auto; padding: 20px;">
+
+    <h1>Stored XSS Lab</h1>
+
+    <p>
+        Sản phẩm thử nghiệm:
+        <strong>@Model.Product.Name</strong>
+    </p>
+
+    <p>
+        Bình luận được lưu trong SQL Server.
+        Trang này so sánh việc hiển thị cùng một nội dung
+        bằng cách không an toàn và cách an toàn.
+    </p>
+
+    @if (TempData["LabMessage"] != null)
+    {
+        <div class="alert alert-success" role="status">
+            @TempData["LabMessage"]
+        </div>
+    }
+
+    @if (TempData["LabError"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["LabError"]
+        </div>
+    }
+
+    <hr />
+
+    <h2>Gửi bình luận thử nghiệm</h2>
+
+    <form asp-controller="XssLab"
+          asp-action="AddStoredComment"
+          method="post"
+          style="max-width: 700px; margin: 20px 0;">
+
+        @Html.AntiForgeryToken()
+
+        <input type="hidden"
+               name="productId"
+               value="@Model.Product.Id" />
+
+        <div class="mb-3">
+            <label for="userName" class="form-label">
+                Tên người dùng
+            </label>
+
+            <input type="text"
+                   id="userName"
+                   name="userName"
+                   class="form-control"
+                   maxlength="50"
+                   required />
+        </div>
+
+        <div class="mb-3">
+            <label for="content" class="form-label">
+                Nội dung bình luận
+            </label>
+
+            <textarea id="content"
+                      name="content"
+                      class="form-control"
+                      rows="4"
+                      maxlength="1000"
+                      required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Lưu bình luận vào SQL Server
+        </button>
+    </form>
+
+    <hr />
+
+    <h2>
+        Bình luận đã lưu (@Model.Comments.Count)
+    </h2>
+
+    @if (Model.Comments.Count == 0)
+    {
+        <p>Chưa có bình luận nào cho sản phẩm này.</p>
+    }
+    else
+    {
+        @foreach (var comment in Model.Comments)
+        {
+            <article style="border: 1px solid #ddd; border-radius: 8px; padding: 18px; margin: 18px 0;">
+
+                <p>
+                    <strong>Người gửi:</strong>
+                    @comment.UserName
+                </p>
+
+                <p>
+                    <strong>Thời gian:</strong>
+                    @comment.CreatedAt.ToLocalTime()
+                    .ToString("dd/MM/yyyy HH:mm")
+                </p>
+
+                <section style="border: 1px solid #dc3545; padding: 12px; margin: 12px 0;">
+                    <h3>Phiên bản dễ bị lỗi — chỉ dùng trong lab</h3>
+
+                    <div>
+                        @Html.Raw(comment.Content)
+                    </div>
+                </section>
+
+                <section style="border: 1px solid #198754; padding: 12px; margin: 12px 0;">
+                    <h3>Phiên bản phòng chống</h3>
+
+                    <div style="white-space: pre-wrap; overflow-wrap: anywhere;">@comment.Content</div>
+                </section>
+
+            </article>
+        }
+    }
+
+    <a asp-controller="XssLab"
+       asp-action="Index"
+       class="btn btn-secondary">
+        Quay lại XSS Lab
+    </a>
+
+</div>

@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Reflected XSS Lab";
+    string query = ViewData["Query"] as string ?? "";
+}
+
+<div class="container" style="max-width: 900px; margin: 35px auto; padding: 20px;">
+
+    <h1>Reflected XSS Lab</h1>
+
+    <p>
+        Nhập một từ khóa để so sánh giữa cách hiển thị không an toàn
+        và cách hiển thị có mã hóa đầu ra.
+    </p>
+
+    <form asp-controller="XssLab"
+          asp-action="Reflected"
+          method="get"
+          style="margin: 20px 0;">
+
+        <label for="query">Từ khóa kiểm tra</label>
+
+        <input id="query"
+               name="query"
+               value="@query"
+               class="form-control"
+               maxlength="1000"
+               style="margin: 8px 0;"
+               placeholder="Nhập từ khóa tìm kiếm..." />
+
+        <button type="submit" class="btn btn-primary">
+            Thử nghiệm
+        </button>
+    </form>
+
+    @if (!string.IsNullOrEmpty(query))
+    {
+        <hr />
+
+        <section style="border: 1px solid #dc3545; padding: 18px; margin: 20px 0;">
+            <h2>Phiên bản dễ bị lỗi — chỉ dùng trong lab</h2>
+
+            <p>
+                <strong>Từ khóa nhận được:</strong>
+            </p>
+
+            <div>
+                @Html.Raw(query)
+            </div>
+        </section>
+
+        <section style="border: 1px solid #198754; padding: 18px; margin: 20px 0;">
+            <h2>Phiên bản phòng chống</h2>
+
+            <p>
+                <strong>Từ khóa hiển thị an toàn:</strong>
+            </p>
+
+            <div>
+                @query
+            </div>
+        </section>
+    }
+
+    <a asp-controller="XssLab"
+       asp-action="Index"
+       class="btn btn-secondary">
+        Quay lại XSS Lab
+    </a>
+
+</div>

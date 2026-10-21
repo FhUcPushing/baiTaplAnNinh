@@ -1,0 +1,125 @@
+﻿@{
+    ViewData["Title"] = "DOM-based XSS Lab";
+}
+
+<div class="container" style="max-width: 900px; margin: 35px auto; padding: 20px;">
+
+    <h1>DOM-based XSS Lab</h1>
+
+    <p>
+        Trang này đọc dữ liệu từ URL fragment (phần sau dấu #)
+        và minh họa hai cách đưa dữ liệu vào DOM.
+    </p>
+
+    <div style="margin: 24px 0;">
+        <button type="button"
+                id="btnDemo"
+                class="btn btn-primary">
+            Chạy payload minh họa
+        </button>
+
+        <button type="button"
+                id="btnClear"
+                class="btn btn-secondary">
+            Xóa nội dung thử nghiệm
+        </button>
+    </div>
+
+    <section style="border: 1px solid #dc3545; padding: 18px; margin: 20px 0;">
+        <h2>Phiên bản dễ bị lỗi — chỉ dùng trong lab</h2>
+
+        <div id="unsafeOutput">
+            Chưa có dữ liệu thử nghiệm.
+        </div>
+    </section>
+
+    <section style="border: 1px solid #198754; padding: 18px; margin: 20px 0;">
+        <h2>Phiên bản phòng chống</h2>
+
+        <div id="safeOutput">
+            Chưa có dữ liệu thử nghiệm.
+        </div>
+    </section>
+
+    <p>
+        Phiên bản dễ bị lỗi sử dụng innerHTML.
+        Phiên bản phòng chống sử dụng textContent.
+    </p>
+
+    <a asp-controller="XssLab"
+       asp-action="Index"
+       class="btn btn-secondary">
+        Quay lại XSS Lab
+    </a>
+
+</div>
+
+@section Scripts {
+    <script>
+        (() => {
+            const unsafeOutput =
+                document.getElementById("unsafeOutput");
+
+            const safeOutput =
+                document.getElementById("safeOutput");
+
+            function renderDemo() {
+                const encoded =
+                    window.location.hash.substring(1);
+
+                let value = "";
+
+                try {
+                    value = decodeURIComponent(encoded);
+                } catch {
+                    value = encoded;
+                }
+
+                if (!value) {
+                    value = "Chưa có dữ liệu thử nghiệm.";
+                }
+
+                // CỐ Ý KHÔNG AN TOÀN: chỉ dùng trong lab localhost
+                unsafeOutput.innerHTML = value;
+
+                // CÁCH PHÒNG CHỐNG: hiển thị dữ liệu như văn bản
+                safeOutput.textContent = value;
+            }
+
+                    document.getElementById("btnDemo")
+        .addEventListener("click", () => {
+            const payload =
+                `<img src=x onerror="alert('DOM XSS')">`;
+
+            const encodedPayload =
+                encodeURIComponent(payload);
+
+            if (window.location.hash.substring(1) === encodedPayload) {
+                renderDemo();
+            } else {
+                window.location.hash = encodedPayload;
+            }
+        });
+
+            document.getElementById("btnClear")
+                .addEventListener("click", () => {
+                    history.replaceState(
+                        null,
+                        "",
+                        window.location.pathname +
+                        window.location.search
+                    );
+
+                    unsafeOutput.textContent =
+                        "Đã xóa dữ liệu thử nghiệm.";
+
+                    safeOutput.textContent =
+                        "Đã xóa dữ liệu thử nghiệm.";
+                });
+
+            renderDemo();
+
+            window.addEventListener("hashchange", renderDemo);
+        })();
+    </script>
+}
